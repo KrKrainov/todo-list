@@ -1,0 +1,8 @@
+.app-header {
+    padding: .5rem 0 !important;
+}
+
+.app-header span:last-child {
+    color: #666666;
+    align-self: flex-end;
+}

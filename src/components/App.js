@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 
-import AppHeader from './AppHeader';
-import TodoList from './TodoList';
+import AppHeader from './AppHeader/AppHeader';
+import TodoList from './TodoList/TodoList';
+import SearchPanel from './SearchPanel/SearchPanel';
 
 const TODO_DATA = [
     { label: 'Drink Coffee', id: 1 },
@@ -12,8 +13,13 @@ const TODO_DATA = [
 class App extends PureComponent {
     render() {
         return <div className='container'>
-            <AppHeader/>
-            <TodoList todos={TODO_DATA}/>
+            <div className="row justify-content-center">
+                <div className="col-6">
+                    <AppHeader/>
+                    <SearchPanel/>
+                    <TodoList todos={TODO_DATA}/>
+                </div>
+            </div>
         </div>;
     }
 }
