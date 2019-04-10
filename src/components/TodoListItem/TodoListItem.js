@@ -5,15 +5,15 @@ import './TodoListItem.css';
 
 export default class TodoListItem extends PureComponent {
     render() {
-        const { label, important, done, onDeleted, onItemClick, onMarkImportant } = this.props;
+        const { label, important, done, onDeleted, onToggleDone, onToggleImportant } = this.props;
 
         return (
             <span className={classNames("todo-list-item", {"important": important, "done": done})}>
-                <span onClick={onItemClick}>{label}</span>
+                <span onClick={onToggleDone}>{label}</span>
                 <button
                     type="button"
                     className="btn btn-outline-success btn-sm float-right"
-                    onClick={onMarkImportant}>
+                    onClick={onToggleImportant}>
                     <i className="fa fa-exclamation"/>
                 </button>
                 <button

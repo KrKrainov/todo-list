@@ -17,7 +17,7 @@ class App extends PureComponent {
         ]
     };
 
-    onItemClick = (id) => {
+    onToggleDone = (id) => {
         this.setState(({ data }) => {
             return { data: data.map((item) => {
                     if(item.id === id) return {...item, done: !item.done};
@@ -27,7 +27,7 @@ class App extends PureComponent {
         })
     };
 
-    onMarkImportant = (id) => {
+    onToggleImportant = (id) => {
         this.setState(({ data }) => {
             return { data: data.map((item) => {
                     if(item.id === id) return {...item, important: !item.important};
@@ -62,15 +62,17 @@ class App extends PureComponent {
         return <div className='container'>
             <div className="row justify-content-center">
                 <div className="col-6">
-                    <AppHeader/>
+                    <AppHeader
+                        countItem={data.length}
+                        countDone={data.filter((item) => item.done).length}/>
                     <div className="row">
                         <SearchPanel/>
                         <ItemStatusFilter/>
                     </div>
                     <TodoList
                         todos={data}
-                        onItemClick={this.onItemClick}
-                        onMarkImportant={this.onMarkImportant}
+                        onToggleDone={this.onToggleDone}
+                        onToggleImportant={this.onToggleImportant}
                         onDeleted={this.deleteItem}
                     />
                     <ItemAddForm onItemAdded={this.addItem}/>
