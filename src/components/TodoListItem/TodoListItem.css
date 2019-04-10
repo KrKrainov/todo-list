@@ -1,7 +1,6 @@
 .todo-list-item {
     display: block;
     line-height: 2rem;
-    cursor: pointer;
     padding: .25rem .5rem;
 }
 .todo-list-item .btn {
@@ -17,6 +16,12 @@
 .todo-list-item.done {
     color: #155724;
     background-color: #d4edda;
-    text-decoration: line-through;
     font-weight: bold;
+}
+.todo-list-item span {
+    display: inline-block;
+    cursor: pointer;
+}
+.todo-list-item.done span {
+    text-decoration: line-through;
 }

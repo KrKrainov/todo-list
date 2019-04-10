@@ -5,14 +5,43 @@ import TodoList from './TodoList/TodoList';
 import SearchPanel from './SearchPanel/SearchPanel';
 import ItemStatusFilter from './ItemStatusFilter/ItemStatusFilter';
 
-const TODO_DATA = [
-    { label: 'Drink Coffee', important: true, id: 1 },
-    { label: 'Create new component', important: false, id: 2 },
-    { label: 'Make Awesome App', important: false, id: 3 }
-];
-
 class App extends PureComponent {
+    state = {
+        data: [
+            { label: 'Drink Coffee', important: true, done: false, id: 1 },
+            { label: 'Create new component', important: false, done: false, id: 2 },
+            { label: 'Make Awesome App', important: false, done: false, id: 3 }
+        ]
+    };
+
+    onItemClick = (id) => {
+        this.setState(({ data }) => {
+            return { data: data.map((item) => {
+                    if(item.id === id) return {...item, done: !item.done};
+                    return {...item};
+                })
+            };
+        })
+    };
+
+    onMarkImportant = (id) => {
+        this.setState(({ data }) => {
+            return { data: data.map((item) => {
+                    if(item.id === id) return {...item, important: !item.important};
+                    return {...item};
+                })
+            };
+        })
+    };
+
+    onDeleted = (id) => {
+        this.setState(({ data }) => {
+            return { data: data.filter((item) => item.id !== id) };
+        })
+    };
+
     render() {
+        const { data } = this.state;
         return <div className='container'>
             <div className="row justify-content-center">
                 <div className="col-6">
@@ -21,7 +50,12 @@ class App extends PureComponent {
                         <SearchPanel/>
                         <ItemStatusFilter/>
                     </div>
-                    <TodoList todos={TODO_DATA}/>
+                    <TodoList
+                        todos={data}
+                        onItemClick={this.onItemClick}
+                        onMarkImportant={this.onMarkImportant}
+                        onDeleted={this.onDeleted}
+                    />
                 </div>
             </div>
         </div>;
