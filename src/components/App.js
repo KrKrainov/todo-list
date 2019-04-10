@@ -4,8 +4,11 @@ import AppHeader from './AppHeader/AppHeader';
 import TodoList from './TodoList/TodoList';
 import SearchPanel from './SearchPanel/SearchPanel';
 import ItemStatusFilter from './ItemStatusFilter/ItemStatusFilter';
+import ItemAddForm from './ItemAddForm/ItemAddForm';
 
 class App extends PureComponent {
+    maxId = 1000;
+
     state = {
         data: [
             { label: 'Drink Coffee', important: true, done: false, id: 1 },
@@ -34,9 +37,23 @@ class App extends PureComponent {
         })
     };
 
-    onDeleted = (id) => {
+    deleteItem = (id) => {
         this.setState(({ data }) => {
             return { data: data.filter((item) => item.id !== id) };
+        })
+    };
+
+    addItem = (text) => {
+        this.setState(({ data }) => {
+            return { data: [
+                    ...data,
+                    {
+                        label: text,
+                        important: false,
+                        done: false,
+                        id: this.maxId++
+                    }
+                ]};
         })
     };
 
@@ -54,8 +71,9 @@ class App extends PureComponent {
                         todos={data}
                         onItemClick={this.onItemClick}
                         onMarkImportant={this.onMarkImportant}
-                        onDeleted={this.onDeleted}
+                        onDeleted={this.deleteItem}
                     />
+                    <ItemAddForm onItemAdded={this.addItem}/>
                 </div>
             </div>
         </div>;
