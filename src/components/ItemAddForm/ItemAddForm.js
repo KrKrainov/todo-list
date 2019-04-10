@@ -3,26 +3,36 @@ import React, { PureComponent } from 'react';
 import './ItemAddForm.css';
 
 export default class ItemAddForm extends PureComponent {
-    submitForm = (event) => {
+    state = {
+        label: ''
+    };
+
+    onChangeLabel = (event) => {
+        this.setState({ label: event.target.value })
+    };
+
+    onSubmitForm = (event) => {
         event.preventDefault();
-        this.props.onItemAdded(event.target.querySelector('input[type=text]').value);
+        this.props.onItemAdded(this.state.label);
+        this.setState({ label: '' })
     };
 
     render() {
         return (
             <form
-                className="item-add-form row mt-3"
-                onSubmit={this.submitForm}>
-                <div className="col-sm-9">
-                    <input className="form-control mb-3" type="text" placeholder="Text ToDo"/>
-                </div>
-                <div className="col-sm-3">
-                    <button
-                        type="submit"
-                        className="btn btn-outline-secondary float-right">
-                        Add Item
-                    </button>
-                </div>
+                className="item-add-form mt-3 d-flex"
+                onSubmit={this.onSubmitForm}>
+                <input
+                    className="form-control"
+                    type="text"
+                    placeholder="What needs to be done"
+                    onChange={this.onChangeLabel}
+                    value={this.state.label}
+                />
+                <input
+                    type="submit"
+                    className="btn btn-outline-secondary"
+                    value="Add Item"/>
             </form>
         )
     }

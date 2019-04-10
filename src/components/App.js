@@ -55,7 +55,7 @@ class App extends PureComponent {
                     <AppHeader
                         countItem={data.length}
                         countDone={data.filter((item) => item.done).length}/>
-                    <div className="row">
+                    <div className="d-flex">
                         <SearchPanel/>
                         <ItemStatusFilter/>
                     </div>
