@@ -17,20 +17,10 @@ class App extends PureComponent {
         ]
     };
 
-    onToggleDone = (id) => {
+    toggleProperty = (id, propName) => {
         this.setState(({ data }) => {
             return { data: data.map((item) => {
-                    if(item.id === id) return {...item, done: !item.done};
-                    return {...item};
-                })
-            };
-        })
-    };
-
-    onToggleImportant = (id) => {
-        this.setState(({ data }) => {
-            return { data: data.map((item) => {
-                    if(item.id === id) return {...item, important: !item.important};
+                    if(item.id === id) return {...item, [propName]: !item[propName]};
                     return {...item};
                 })
             };
@@ -71,8 +61,7 @@ class App extends PureComponent {
                     </div>
                     <TodoList
                         todos={data}
-                        onToggleDone={this.onToggleDone}
-                        onToggleImportant={this.onToggleImportant}
+                        toggleProperty={this.toggleProperty}
                         onDeleted={this.deleteItem}
                     />
                     <ItemAddForm onItemAdded={this.addItem}/>
