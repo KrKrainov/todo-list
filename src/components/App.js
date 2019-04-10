@@ -6,9 +6,9 @@ import SearchPanel from './SearchPanel/SearchPanel';
 import ItemStatusFilter from './ItemStatusFilter/ItemStatusFilter';
 
 const TODO_DATA = [
-    { label: 'Drink Coffee', important: true, done: false, id: 1 },
-    { label: 'Create new component', important: false, done: true, id: 2 },
-    { label: 'Make Awesome App', important: false, done: false, id: 3 }
+    { label: 'Drink Coffee', important: true, id: 1 },
+    { label: 'Create new component', important: false, id: 2 },
+    { label: 'Make Awesome App', important: false, id: 3 }
 ];
 
 class App extends PureComponent {

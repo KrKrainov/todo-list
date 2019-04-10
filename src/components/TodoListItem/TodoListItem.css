@@ -1,3 +1,22 @@
+.todo-list-item {
+    display: block;
+    line-height: 2rem;
+    cursor: pointer;
+    padding: .25rem .5rem;
+}
 .todo-list-item .btn {
-    width: 2.25em;
+    width: 2rem;
+    height: 2rem;
+}
+
+.todo-list-item.important {
+    color: #721c24;
+    background-color: #f8d7da;
+}
+
+.todo-list-item.done {
+    color: #155724;
+    background-color: #d4edda;
+    text-decoration: line-through;
+    font-weight: bold;
 }

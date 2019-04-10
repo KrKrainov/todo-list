@@ -1,13 +1,25 @@
 import React, { PureComponent } from 'react';
+import classNames from 'classnames';
 
 import './TodoListItem.css';
 
 export default class TodoListItem extends PureComponent {
+    state = {
+        done: false
+    };
+
+    onItemClick = () => {
+        this.setState({ done: !this.state.done });
+    };
+
     render() {
-        const { label } = this.props;
+        const { label, important } = this.props;
+        const { done } = this.state;
 
         return (
-            <span className="todo-list-item">
+            <span
+                className={classNames("todo-list-item", {"important": important, "done": done})}
+                onClick={this.onItemClick}>
                 <span>{label}</span>
                 <button type="button" className="btn btn-outline-success btn-sm float-right">
                     <i className="fa fa-exclamation"/>
