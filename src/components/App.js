@@ -14,7 +14,17 @@ class App extends PureComponent {
             { label: 'Drink Coffee', important: true, done: false, id: 1 },
             { label: 'Create new component', important: false, done: false, id: 2 },
             { label: 'Make Awesome App', important: false, done: false, id: 3 }
-        ]
+        ],
+        filter: 'all'
+    };
+
+    toggleFilter = (filter) => {
+        this.setState({ filter: filter })
+    };
+
+    filterData = (data, filter) => {
+        if(filter === 'all') return data;
+        return data.filter((item) => item[filter]);
     };
 
     toggleProperty = (id, propName) => {
@@ -48,7 +58,9 @@ class App extends PureComponent {
     };
 
     render() {
-        const { data } = this.state;
+        const { data, filter } = this.state;
+        let newData = this.filterData(data, filter);
+
         return <div className='container'>
             <div className="row justify-content-center">
                 <div className="col-6">
@@ -57,10 +69,10 @@ class App extends PureComponent {
                         countDone={data.filter((item) => item.done).length}/>
                     <div className="d-flex">
                         <SearchPanel/>
-                        <ItemStatusFilter/>
+                        <ItemStatusFilter toggleFilter={this.toggleFilter} filter={filter} />
                     </div>
                     <TodoList
-                        todos={data}
+                        todos={newData}
                         toggleProperty={this.toggleProperty}
                         onDeleted={this.deleteItem}
                     />
