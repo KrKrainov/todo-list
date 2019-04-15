@@ -15,7 +15,8 @@ class App extends PureComponent {
             { label: 'Create new component', important: false, done: false, id: 2 },
             { label: 'Make Awesome App', important: false, done: false, id: 3 }
         ],
-        filter: 'all'
+        filter: 'all',
+        term: ''
     };
 
     toggleFilter = (filter) => {
@@ -36,6 +37,15 @@ class App extends PureComponent {
             };
         })
     };
+
+    onSearchChange = (term) => this.setState({ term });
+
+    search(items, term) {
+        if (term.length === 0) return items;
+        return items.filter((item) => item.label
+            .toLowerCase()
+            .indexOf(term.toLowerCase()) > -1);
+    }
 
     deleteItem = (id) => {
         this.setState(({ data }) => {
@@ -58,8 +68,9 @@ class App extends PureComponent {
     };
 
     render() {
-        const { data, filter } = this.state;
-        let newData = this.filterData(data, filter);
+        const { data, filter, term } = this.state;
+        let visibleItems = this.search(
+            this.filterData(data, filter), term);
 
         return <div className='container'>
             <div className="row justify-content-center">
@@ -68,11 +79,11 @@ class App extends PureComponent {
                         countItem={data.length}
                         countDone={data.filter((item) => item.done).length}/>
                     <div className="d-flex">
-                        <SearchPanel/>
+                        <SearchPanel onSearchChange={this.onSearchChange}/>
                         <ItemStatusFilter toggleFilter={this.toggleFilter} filter={filter} />
                     </div>
                     <TodoList
-                        todos={newData}
+                        todos={visibleItems}
                         toggleProperty={this.toggleProperty}
                         onDeleted={this.deleteItem}
                     />
