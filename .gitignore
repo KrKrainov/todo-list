@@ -1,11 +1,15 @@
+
+
 # dependencies
 /node_modules
 
 # production
 /build
 
-#misc
+# misc
 .idea
 *-lock.json
+.vscode
 
-npm-debug.log*
+# log
+*.log*
